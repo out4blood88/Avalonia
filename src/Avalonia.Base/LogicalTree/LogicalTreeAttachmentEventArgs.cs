@@ -14,7 +14,7 @@ namespace Avalonia.LogicalTree
         /// <param name="root">The root of the logical tree.</param>
         /// <param name="source">The control being attached/detached.</param>
         /// <param name="parent">The <see cref="Parent"/>.</param>
-        public LogicalTreeAttachmentEventArgs(
+        internal LogicalTreeAttachmentEventArgs(
             ILogicalRoot root,
             ILogical source,
             ILogical? parent)

@@ -7,6 +7,10 @@ namespace Avalonia.Input
     /// </summary>
     public class GotFocusEventArgs : RoutedEventArgs
     {
+        internal GotFocusEventArgs()
+        {
+
+        }
         /// <summary>
         /// Gets or sets a value indicating how the change in focus occurred.
         /// </summary>

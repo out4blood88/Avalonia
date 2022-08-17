@@ -23,6 +23,11 @@
 
   <ItemGroup Label="InternalsVisibleTo">
     <InternalsVisibleTo Include="Avalonia.Base.UnitTests, PublicKey=$(AvaloniaPublicKey)" />
+    <InternalsVisibleTo Include="Avalonia.Native, PublicKey=$(AvaloniaPublicKey)"/>
+    <InternalsVisibleTo Include="Avalonia.Win32, PublicKey=$(AvaloniaPublicKey)"/>
+    <InternalsVisibleTo Include="Avalonia.X11, PublicKey=$(AvaloniaPublicKey)"/>
+    <InternalsVisibleTo Include="Avalonia.Headless, PublicKey=$(AvaloniaPublicKey)"/>
+    <InternalsVisibleTo Include="Avalonia.LinuxFramebuffer, PublicKey=$(AvaloniaPublicKey)"/>
     <InternalsVisibleTo Include="Avalonia.Controls, PublicKey=$(AvaloniaPublicKey)" />
     <InternalsVisibleTo Include="Avalonia.Controls.ColorPicker, PublicKey=$(AvaloniaPublicKey)" />
     <InternalsVisibleTo Include="Avalonia.Controls.DataGrid, PublicKey=$(AvaloniaPublicKey)" />

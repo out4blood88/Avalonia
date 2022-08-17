@@ -34,7 +34,7 @@ namespace Avalonia.Input.Raw
     public class RawPointerEventArgs : RawInputEventArgs
     {
         private RawPointerPoint _point;
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="RawPointerEventArgs"/> class.
         /// </summary>
@@ -44,7 +44,7 @@ namespace Avalonia.Input.Raw
         /// <param name="type">The type of the event.</param>
         /// <param name="position">The mouse position, in client DIPs.</param>
         /// <param name="inputModifiers">The input modifiers.</param>
-        public RawPointerEventArgs(
+        internal RawPointerEventArgs(
             IInputDevice device,
             ulong timestamp,
             IInputRoot root,
@@ -71,7 +71,7 @@ namespace Avalonia.Input.Raw
         /// <param name="type">The type of the event.</param>
         /// <param name="point">The point properties and position, in client DIPs.</param>
         /// <param name="inputModifiers">The input modifiers.</param>
-        public RawPointerEventArgs(
+        internal RawPointerEventArgs(
             IInputDevice device,
             ulong timestamp,
             IInputRoot root,

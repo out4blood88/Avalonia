@@ -2,7 +2,7 @@ namespace Avalonia.Input.Raw
 {
     public class RawTextInputEventArgs : RawInputEventArgs
     {
-        public RawTextInputEventArgs(
+        internal RawTextInputEventArgs(
             IKeyboardDevice device,
             ulong timestamp,
             IInputRoot root,

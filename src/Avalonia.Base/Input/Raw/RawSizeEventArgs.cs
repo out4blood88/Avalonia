@@ -4,12 +4,12 @@ namespace Avalonia.Input.Raw
 {
     public class RawSizeEventArgs : EventArgs
     {
-        public RawSizeEventArgs(Size size)
+        internal RawSizeEventArgs(Size size)
         {
             Size = size;
         }
 
-        public RawSizeEventArgs(double width, double height)
+        internal RawSizeEventArgs(double width, double height)
         {
             Size = new Size(width, height);
         }

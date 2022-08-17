@@ -3,7 +3,7 @@ namespace Avalonia.Input.Raw
 {
     public class RawMouseWheelEventArgs : RawPointerEventArgs
     {
-        public RawMouseWheelEventArgs(
+        internal RawMouseWheelEventArgs(
             IInputDevice device,
             ulong timestamp,
             IInputRoot root,
