@@ -26,11 +26,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\packages\Avalonia\Avalonia.csproj" />
-    <ProjectReference Include="..\..\src\Avalonia.Controls.ColorPicker\Avalonia.Controls.ColorPicker.csproj" />
-    <ProjectReference Include="..\..\src\Avalonia.Controls.DataGrid\Avalonia.Controls.DataGrid.csproj" />
-    <ProjectReference Include="..\..\src\Avalonia.Themes.Simple\Avalonia.Themes.Simple.csproj" />
-    <ProjectReference Include="..\..\src\Avalonia.Themes.Fluent\Avalonia.Themes.Fluent.csproj" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview1" />
+    <PackageReference Include="Avalonia" Version="11.0.0-preview1" />
+    <PackageReference Include="Avalonia.Diagnostics" Version="11.0.0-preview1" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.0.0-preview1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MiniMvvm\MiniMvvm.csproj" />
     <ProjectReference Include="..\SampleControls\ControlSamples.csproj" />
   </ItemGroup>
@@ -47,5 +49,5 @@
     </Compile>
   </ItemGroup>
 
-  <Import Project="..\..\build\BuildTargets.targets" />
+  <!--<Import Project="..\..\build\BuildTargets.targets" />-->
 </Project>
