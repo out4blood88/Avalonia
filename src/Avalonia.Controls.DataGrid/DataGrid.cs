@@ -32,7 +32,7 @@ namespace Avalonia.Controls
     /// <summary>
     /// Displays data in a customizable grid.
     /// </summary>
-    [TemplatePart(DATAGRID_elementBottomRightCornerHeaderName,     typeof(IVisual))]
+    [TemplatePart(DATAGRID_elementBottomRightCornerHeaderName,     typeof(Visual))]
     [TemplatePart(DATAGRID_elementColumnHeadersPresenterName,      typeof(DataGridColumnHeadersPresenter))]
     [TemplatePart(DATAGRID_elementFrozenColumnScrollBarSpacerName, typeof(Control))]
     [TemplatePart(DATAGRID_elementHorizontalScrollbarName,         typeof(ScrollBar))]
@@ -90,7 +90,7 @@ namespace Avalonia.Controls
         private INotifyCollectionChanged _topLevelGroup;
         private ContentControl _clipboardContentControl;
 
-        private IVisual _bottomRightCorner;
+        private Visual _bottomRightCorner;
         private DataGridColumnHeadersPresenter _columnHeadersPresenter;
         private DataGridRowsPresenter _rowsPresenter;
         private ScrollBar _vScrollBar;
@@ -121,7 +121,7 @@ namespace Avalonia.Controls
         private bool _executingLostFocusActions;
         private bool _flushCurrentCellChanged;
         private bool _focusEditingControl;
-        private IVisual _focusedObject;
+        private Visual _focusedObject;
         private byte _horizontalScrollChangesIgnored;
         private DataGridRow _focusedRow;
         private bool _ignoreNextScrollBarsLayout;
@@ -522,13 +522,13 @@ namespace Avalonia.Controls
             set { SetValue(VerticalScrollBarVisibilityProperty, value); }
         }
 
-        public static readonly StyledProperty<ITemplate<IControl>> DropLocationIndicatorTemplateProperty =
-            AvaloniaProperty.Register<DataGrid, ITemplate<IControl>>(nameof(DropLocationIndicatorTemplate));
+        public static readonly StyledProperty<ITemplate<Control>> DropLocationIndicatorTemplateProperty =
+            AvaloniaProperty.Register<DataGrid, ITemplate<Control>>(nameof(DropLocationIndicatorTemplate));
 
         /// <summary>
         /// Gets or sets the template that is used when rendering the column headers.
         /// </summary>
-        public ITemplate<IControl> DropLocationIndicatorTemplate
+        public ITemplate<Control> DropLocationIndicatorTemplate
         {
             get { return GetValue(DropLocationIndicatorTemplateProperty); }
             set { SetValue(DropLocationIndicatorTemplateProperty, value); }
@@ -2470,7 +2470,7 @@ namespace Avalonia.Controls
             _topLeftCornerHeader = e.NameScope.Find<ContentControl>(DATAGRID_elementTopLeftCornerHeaderName);
             EnsureTopLeftCornerHeader(); // EnsureTopLeftCornerHeader checks for a null _topLeftCornerHeader;
             _topRightCornerHeader = e.NameScope.Find<ContentControl>(DATAGRID_elementTopRightCornerHeaderName);
-            _bottomRightCorner = e.NameScope.Find<IVisual>(DATAGRID_elementBottomRightCornerHeaderName);
+            _bottomRightCorner = e.NameScope.Find<Visual>(DATAGRID_elementBottomRightCornerHeaderName);
         }
 
         /// <summary>
@@ -3129,7 +3129,7 @@ namespace Avalonia.Controls
             if (EditingRow != null && EditingColumnIndex != -1 && !_executingLostFocusActions)
             {
                 DataGridColumn editingColumn = ColumnsItemsInternal[EditingColumnIndex];
-                IControl editingElement = editingColumn.GetCellContent(EditingRow);
+                Control editingElement = editingColumn.GetCellContent(EditingRow);
                 if (editingElement != null && editingElement.ContainsChild(_focusedObject))
                 {
                     Debug.Assert(_lostFocusActions != null);
@@ -3867,7 +3867,7 @@ namespace Avalonia.Controls
 
             // Keep track of which row contains the newly focused element
             DataGridRow focusedRow = null;
-            IVisual focusedElement = e.Source as IVisual;
+            Visual focusedElement = e.Source as Visual;
             _focusedObject = focusedElement;
             while (focusedElement != null)
             {
@@ -3920,7 +3920,7 @@ namespace Avalonia.Controls
             {
                 bool focusLeftDataGrid = true;
                 bool dataGridWillReceiveRoutedEvent = true;
-                IVisual focusedObject = FocusManager.Instance.Current;
+                Visual focusedObject = FocusManager.Instance.Current as Visual;
 
                 while (focusedObject != null)
                 {
@@ -3933,7 +3933,7 @@ namespace Avalonia.Controls
                     // Walk up the visual tree.  If we hit the root, try using the framework element's
                     // parent.  We do this because Popups behave differently with respect to the visual tree,
                     // and it could have a parent even if the VisualTreeHelper doesn't find it.
-                    IVisual parent = focusedObject.GetVisualParent();
+                    Visual parent = focusedObject.GetVisualParent();
                     if (parent == null)
                     {
                         if (focusedObject is Control element)
@@ -4547,7 +4547,7 @@ namespace Avalonia.Controls
             Debug.Assert(dataGridRow != null);
             Debug.Assert(dataGridCell != null);
 
-            IControl element = null;
+            Control element = null;
             DataGridBoundColumn dataGridBoundColumn = dataGridColumn as DataGridBoundColumn;
             if (isCellEdited)
             {

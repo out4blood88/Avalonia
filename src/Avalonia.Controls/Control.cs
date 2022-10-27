@@ -26,13 +26,13 @@ namespace Avalonia.Controls
     /// - A <see cref="Tag"/> property to allow user-defined data to be attached to the control.
     /// - <see cref="ContextRequestedEvent"/> and other context menu related members.
     /// </remarks>
-    public class Control : InputElement, IControl, INamed, IVisualBrushInitialize, ISetterValue
+    public class Control : InputElement, IDataTemplateHost, INamed, IVisualBrushInitialize, ISetterValue
     {
         /// <summary>
         /// Defines the <see cref="FocusAdorner"/> property.
         /// </summary>
-        public static readonly StyledProperty<ITemplate<IControl>?> FocusAdornerProperty =
-            AvaloniaProperty.Register<Control, ITemplate<IControl>?>(nameof(FocusAdorner));
+        public static readonly StyledProperty<ITemplate<Control>?> FocusAdornerProperty =
+            AvaloniaProperty.Register<Control, ITemplate<Control>?>(nameof(FocusAdorner));
 
         /// <summary>
         /// Defines the <see cref="Tag"/> property.
@@ -107,13 +107,13 @@ namespace Avalonia.Controls
 
         private bool _isLoaded = false;
         private DataTemplates? _dataTemplates;
-        private IControl? _focusAdorner;
+        private Control? _focusAdorner;
         private AutomationPeer? _automationPeer;
 
         /// <summary>
         /// Gets or sets the control's focus adorner.
         /// </summary>
-        public ITemplate<IControl>? FocusAdorner
+        public ITemplate<Control>? FocusAdorner
         {
             get => GetValue(FocusAdornerProperty);
             set => SetValue(FocusAdornerProperty, value);
@@ -211,7 +211,7 @@ namespace Avalonia.Controls
             remove => RemoveHandler(UnloadedEvent, value);
         }
 
-        public new IControl? Parent => (IControl?)base.Parent;
+        public new Control? Parent => (Control?)base.Parent;
 
         /// <summary>
         /// Gets the value of the attached <see cref="FlowDirectionProperty"/> on a control.
@@ -267,7 +267,7 @@ namespace Avalonia.Controls
                 {
                     foreach (var i in this.GetSelfAndVisualDescendants())
                     {
-                        var c = i as IControl;
+                        var c = i as Control;
 
                         if (c?.IsInitialized == false && c is ISupportInitialize init)
                         {
@@ -289,7 +289,7 @@ namespace Avalonia.Controls
         /// Gets the element that receives the focus adorner.
         /// </summary>
         /// <returns>The control that receives the focus adorner.</returns>
-        protected virtual IControl? GetTemplateFocusTarget() => this;
+        protected virtual Control? GetTemplateFocusTarget() => this;
 
         private static Action loadedProcessingAction = () =>
         {
@@ -456,7 +456,7 @@ namespace Avalonia.Controls
 
             if (_focusAdorner?.Parent != null)
             {
-                var adornerLayer = (IPanel)_focusAdorner.Parent;
+                var adornerLayer = (Panel)_focusAdorner.Parent;
                 adornerLayer.Children.Remove(_focusAdorner);
                 _focusAdorner = null;
             }
@@ -549,7 +549,7 @@ namespace Avalonia.Controls
         }
 
         /// <summary>
-        /// Computes the <see cref="IVisual.HasMirrorTransform"/> value according to the 
+        /// Computes the <see cref="Visual.HasMirrorTransform"/> value according to the 
         /// <see cref="FlowDirection"/> and <see cref="BypassFlowDirectionPolicies"/>
         /// </summary>
         public virtual void InvalidateMirrorTransform()
@@ -560,7 +560,7 @@ namespace Avalonia.Controls
             bool bypassFlowDirectionPolicies = BypassFlowDirectionPolicies;
             bool parentBypassFlowDirectionPolicies = false;
 
-            var parent = ((IVisual)this).VisualParent as Control;
+            var parent = this.VisualParent as Control;
             if (parent != null)
             {
                 parentFlowDirection = parent.FlowDirection;

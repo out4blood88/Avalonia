@@ -12,9 +12,11 @@ namespace Avalonia.Styling
     /// </remarks>
     internal class StyleCache : Dictionary<Type, List<IStyle>?>
     {
-        public SelectorMatchResult TryAttach(IList<IStyle> styles, IStyleable target, object? host)
+        public SelectorMatchResult TryAttach(IList<IStyle> styles, StyledElement target, object? host)
         {
-            if (TryGetValue(target.StyleKey, out var cached))
+            var styleKey = ((IStyleable)target).StyleKey;
+
+            if (TryGetValue(styleKey, out var cached))
             {
                 if (cached is object)
                 {
@@ -47,7 +49,7 @@ namespace Avalonia.Styling
                     }
                 }
 
-                Add(target.StyleKey, matches);
+                Add(styleKey, matches);
 
                 return matches is null ?
                     SelectorMatchResult.NeverThisType :

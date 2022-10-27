@@ -150,7 +150,7 @@ public class StyledElementTests_Theming
             };
         }
 
-        private static TestRoot CreateRoot(IControl child)
+        private static TestRoot CreateRoot(Control child)
         {
             var result = new TestRoot(child);
             result.LayoutManager.ExecuteInitialLayoutPass();
@@ -221,7 +221,7 @@ public class StyledElementTests_Theming
 
         private static ThemedControl CreateTarget() => new ThemedControl();
 
-        private static TestRoot CreateRoot(IControl child)
+        private static TestRoot CreateRoot(Control child)
         {
             var result = new TestRoot();
             result.Resources.Add(typeof(ThemedControl), CreateTheme());
@@ -333,7 +333,7 @@ public class StyledElementTests_Theming
             return new ThemedControl();
         }
 
-        private static TestRoot CreateRoot(IControl child)
+        private static TestRoot CreateRoot(Control child)
         {
             var result = new TestRoot()
             {
@@ -404,12 +404,12 @@ public class StyledElementTests_Theming
 
     private class ThemedControl : TemplatedControl
     {
-        public IVisual? VisualChild => VisualChildren?.SingleOrDefault();
+        public Visual? VisualChild => VisualChildren?.SingleOrDefault();
     }
 
     private class ThemedControl2 : TemplatedControl
     {
-        public IVisual? VisualChild => VisualChildren?.SingleOrDefault();
+        public Visual? VisualChild => VisualChildren?.SingleOrDefault();
     }
 
     private class DerivedThemedControl : ThemedControl

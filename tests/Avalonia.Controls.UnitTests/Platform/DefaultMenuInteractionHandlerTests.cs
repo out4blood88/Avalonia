@@ -12,14 +12,14 @@ namespace Avalonia.Controls.UnitTests.Platform
     public class DefaultMenuInteractionHandlerTests
     {
         static PointerEventArgs CreateArgs(RoutedEvent ev, IInteractive source) 
-            => new PointerEventArgs(ev, source, new FakePointer(), (IVisual)source, default, 0, PointerPointProperties.None, default);
+            => new PointerEventArgs(ev, source, new FakePointer(), (Visual)source, default, 0, PointerPointProperties.None, default);
 
         static PointerPressedEventArgs CreatePressed(IInteractive source) => new PointerPressedEventArgs(source,
-            new FakePointer(), (IVisual)source, default,0, new PointerPointProperties (RawInputModifiers.None, PointerUpdateKind.LeftButtonPressed),
+            new FakePointer(), (Visual)source, default,0, new PointerPointProperties (RawInputModifiers.None, PointerUpdateKind.LeftButtonPressed),
             default);
         
         static PointerReleasedEventArgs CreateReleased(IInteractive source) => new PointerReleasedEventArgs(source,
-            new FakePointer(), (IVisual)source, default,0,
+            new FakePointer(), (Visual)source, default,0,
             new PointerPointProperties(RawInputModifiers.None, PointerUpdateKind.LeftButtonReleased),
             default, MouseButton.Left);
         

@@ -23,7 +23,15 @@ namespace Avalonia
     /// - Implements <see cref="ILogical"/> to form part of a logical tree.
     /// - A collection of class strings for custom styling.
     /// </summary>
-    public class StyledElement : Animatable, IDataContextProvider, IStyledElement, ISetLogicalParent, ISetInheritanceParent
+    public class StyledElement : Animatable, 
+        IDataContextProvider, 
+        ILogical,
+        IResourceHost,
+        IStyleHost,
+        IStyleable,
+        ISetLogicalParent,
+        ISetInheritanceParent,
+        ISupportInitialize
     {
         /// <summary>
         /// Defines the <see cref="DataContext"/> property.
@@ -43,8 +51,8 @@ namespace Avalonia
         /// <summary>
         /// Defines the <see cref="Parent"/> property.
         /// </summary>
-        public static readonly DirectProperty<StyledElement, IStyledElement?> ParentProperty =
-            AvaloniaProperty.RegisterDirect<StyledElement, IStyledElement?>(nameof(Parent), o => o.Parent);
+        public static readonly DirectProperty<StyledElement, StyledElement?> ParentProperty =
+            AvaloniaProperty.RegisterDirect<StyledElement, StyledElement?>(nameof(Parent), o => o.Parent);
 
         /// <summary>
         /// Defines the <see cref="TemplatedParent"/> property.
@@ -249,7 +257,7 @@ namespace Avalonia
         /// <summary>
         /// Gets the styled element's logical children.
         /// </summary>
-        protected IAvaloniaList<ILogical> LogicalChildren
+        protected internal IAvaloniaList<ILogical> LogicalChildren
         {
             get
             {
@@ -282,7 +290,7 @@ namespace Avalonia
         /// <summary>
         /// Gets the styled element's logical parent.
         /// </summary>
-        public IStyledElement? Parent { get; private set; }
+        public StyledElement? Parent { get; private set; }
 
         /// <summary>
         /// Gets the styled element's logical parent.
@@ -453,7 +461,7 @@ namespace Avalonia
                     InheritanceParent = parent as AvaloniaObject;
                 }
 
-                Parent = (IStyledElement?)parent;
+                Parent = (StyledElement?)parent;
 
                 if (_logicalRoot != null)
                 {
@@ -484,8 +492,8 @@ namespace Avalonia
 #nullable disable
                 RaisePropertyChanged(
                     ParentProperty,
-                    new Optional<IStyledElement>(old),
-                    new BindingValue<IStyledElement>(Parent),
+                    new Optional<StyledElement>(old),
+                    new BindingValue<StyledElement>(Parent),
                     BindingPriority.LocalValue);
 #nullable enable
             }
@@ -495,14 +503,9 @@ namespace Avalonia
         /// Sets the styled element's inheritance parent.
         /// </summary>
         /// <param name="parent">The parent.</param>
-        void ISetInheritanceParent.SetParent(IAvaloniaObject? parent)
+        void ISetInheritanceParent.SetParent(AvaloniaObject? parent)
         {
-            InheritanceParent = parent switch
-            {
-                AvaloniaObject ao => ao,
-                null => null,
-                _ => throw new NotSupportedException("Custom implementations of IAvaloniaObject not supported.")
-            };
+            InheritanceParent = parent;
         }
 
         ControlTheme? IStyleable.GetEffectiveTheme()
@@ -666,7 +669,7 @@ namespace Avalonia
         {
         }
 
-        private static void DataContextNotifying(IAvaloniaObject o, bool updateStarted)
+        private static void DataContextNotifying(AvaloniaObject o, bool updateStarted)
         {
             if (o is StyledElement element)
             {

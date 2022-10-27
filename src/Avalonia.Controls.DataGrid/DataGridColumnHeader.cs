@@ -676,7 +676,7 @@ namespace Avalonia.Controls
 
             dragIndicator.PseudoClasses.Add(":dragIndicator");
 
-            IControl dropLocationIndicator = OwningGrid.DropLocationIndicatorTemplate?.Build();
+            Control dropLocationIndicator = OwningGrid.DropLocationIndicatorTemplate?.Build();
 
             // If the user didn't style the dropLocationIndicator's Height, default to the column header's height
             if (dropLocationIndicator != null && double.IsNaN(dropLocationIndicator.Height) && dropLocationIndicator is Control element)

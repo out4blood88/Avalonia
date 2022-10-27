@@ -29,7 +29,7 @@ namespace Avalonia.Styling
         /// </summary>
         public ControlTheme? BasedOn { get; set; }
 
-        public override SelectorMatchResult TryAttach(IStyleable target, object? host)
+        public override SelectorMatchResult TryAttach(StyledElement target, object? host)
         {
             _ = target ?? throw new ArgumentNullException(nameof(target));
 
@@ -38,7 +38,7 @@ namespace Avalonia.Styling
 
             var result = BasedOn?.TryAttach(target, host) ?? SelectorMatchResult.NeverThisType;
 
-            if (HasSettersOrAnimations && TargetType.IsAssignableFrom(target.StyleKey))
+            if (HasSettersOrAnimations && TargetType.IsAssignableFrom(((IStyleable)target).StyleKey))
             {
                 Attach(target, null);
                 result = SelectorMatchResult.AlwaysThisType;

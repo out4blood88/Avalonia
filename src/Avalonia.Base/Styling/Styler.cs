@@ -4,12 +4,12 @@ namespace Avalonia.Styling
 {
     public class Styler : IStyler
     {
-        public void ApplyStyles(IStyleable target)
+        public void ApplyStyles(StyledElement target)
         {
             _ = target ?? throw new ArgumentNullException(nameof(target));
 
             // Apply the control theme.
-            target.GetEffectiveTheme()?.TryAttach(target, target);
+            ((IStyleable)target).GetEffectiveTheme()?.TryAttach(target, target);
 
             // If the control has a themed templated parent then apply the styles from the
             // templated parent theme.
@@ -21,7 +21,7 @@ namespace Avalonia.Styling
                 ApplyStyles(target, styleHost);
         }
 
-        private void ApplyStyles(IStyleable target, IStyleHost host)
+        private void ApplyStyles(StyledElement target, IStyleHost host)
         {
             var parent = host.StylingParent;
 

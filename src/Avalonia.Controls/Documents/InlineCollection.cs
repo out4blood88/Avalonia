@@ -102,7 +102,7 @@ namespace Avalonia.Controls.Documents
             base.Add(inline);
         }
 
-        public void Add(IControl child)
+        public void Add(Control child)
         {
             OnAdd();
 

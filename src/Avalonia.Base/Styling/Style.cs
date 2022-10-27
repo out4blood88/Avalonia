@@ -35,7 +35,7 @@ namespace Avalonia.Styling
             set => _selector = ValidateSelector(value);
         }
 
-        public override SelectorMatchResult TryAttach(IStyleable target, object? host)
+        public override SelectorMatchResult TryAttach(StyledElement target, object? host)
         {
             _ = target ?? throw new ArgumentNullException(nameof(target));
 

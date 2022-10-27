@@ -23,10 +23,10 @@ namespace Avalonia.Base.UnitTests.Rendering
                 var child = new Mock<Visual>() { CallBase = true };
                 var renderRoot = visual.As<IRenderRoot>();
 
-                visual.As<IVisual>().Setup(v => v.Bounds).Returns(new Rect(0, 0, 400, 400));
+                visual.As<Visual>().Setup(v => v.Bounds).Returns(new Rect(0, 0, 400, 400));
 
-                child.As<IVisual>().Setup(v => v.Bounds).Returns(new Rect(10, 10, 100, 100));
-                child.As<IVisual>().Setup(v => v.VisualParent).Returns(visual.Object);
+                child.As<Visual>().Setup(v => v.Bounds).Returns(new Rect(10, 10, 100, 100));
+                child.As<Visual>().Setup(v => v.VisualParent).Returns(visual.Object);
 
                 var target = new ImmediateRenderer(visual.Object);
 
@@ -45,10 +45,10 @@ namespace Avalonia.Base.UnitTests.Rendering
                 var child = new Mock<Visual>() { CallBase = true };
                 var renderRoot = visual.As<IRenderRoot>();
 
-                visual.As<IVisual>().Setup(v => v.Bounds).Returns(new Rect(0, 0, 400, 400));
+                visual.As<Visual>().Setup(v => v.Bounds).Returns(new Rect(0, 0, 400, 400));
 
-                child.As<IVisual>().Setup(v => v.Bounds).Returns(new Rect(100, 100, 100, 100));
-                child.As<IVisual>().Setup(v => v.VisualParent).Returns(visual.Object);
+                child.As<Visual>().Setup(v => v.Bounds).Returns(new Rect(100, 100, 100, 100));
+                child.As<Visual>().Setup(v => v.VisualParent).Returns(visual.Object);
                 child.Object.RenderTransform = new ScaleTransform() { ScaleX = 2, ScaleY = 2 };
 
                 var target = new ImmediateRenderer(visual.Object);
@@ -74,15 +74,15 @@ namespace Avalonia.Base.UnitTests.Rendering
                 renderTarget.Setup(r => r.CreateDrawingContext(It.IsAny<IVisualBrushRenderer>()))
                     .Returns(Mock.Of<IDrawingContextImpl>());
 
-                visual.As<IVisual>().Setup(v => v.Bounds).Returns(new Rect(0, 0, 400, 400));
+                visual.As<Visual>().Setup(v => v.Bounds).Returns(new Rect(0, 0, 400, 400));
 
-                visual.As<IVisual>().Setup(v => v.VisualChildren)
-                    .Returns(new AvaloniaList<IVisual>() { child.As<IVisual>().Object });
+                visual.As<Visual>().Setup(v => v.VisualChildren)
+                    .Returns(new AvaloniaList<Visual>() { child.As<Visual>().Object });
 
                 Rect childBounds = new Rect(0, 0, 100, 100);
-                child.As<IVisual>().Setup(v => v.Bounds).Returns(() => childBounds);
-                child.As<IVisual>().Setup(v => v.VisualParent).Returns(visual.Object);
-                child.As<IVisual>().Setup(v => v.VisualChildren).Returns(new AvaloniaList<IVisual>());
+                child.As<Visual>().Setup(v => v.Bounds).Returns(() => childBounds);
+                child.As<Visual>().Setup(v => v.VisualParent).Returns(visual.Object);
+                child.As<Visual>().Setup(v => v.VisualChildren).Returns(new AvaloniaList<Visual>());
 
                 var invalidationCalls = new List<Rect>();
 
@@ -127,7 +127,7 @@ namespace Avalonia.Base.UnitTests.Rendering
                     Children = { new Panel() { Children = { target } } }
                 };
 
-                var visualTarget = targetMock.As<IVisual>();
+                var visualTarget = targetMock.As<Visual>();
                 int rendered = 0;
                 visualTarget.Setup(v => v.Render(It.IsAny<DrawingContext>())).Callback(() => rendered++);
 
@@ -164,7 +164,7 @@ namespace Avalonia.Base.UnitTests.Rendering
                     Children = { new Panel() { Children = { target } } }
                 };
 
-                var visualTarget = targetMock.As<IVisual>();
+                var visualTarget = targetMock.As<Visual>();
                 int rendered = 0;
                 visualTarget.Setup(v => v.Render(It.IsAny<DrawingContext>())).Callback(() => rendered++);
 
@@ -299,7 +299,7 @@ namespace Avalonia.Base.UnitTests.Rendering
                 var target = new Border();
                 var expected = new TransformedBounds(new Rect(1, 2, 3, 4), new Rect(4, 5, 6, 7), Matrix.CreateRotation(0.8));
 
-                ((IVisual)target).TransformedBounds = expected;
+                target.SetTransformedBounds(expected);
 
                 var renderTarget = Mock.Of<IRenderTarget>(x => 
                     x.CreateDrawingContext(It.IsAny<IVisualBrushRenderer>()) == Mock.Of<IDrawingContextImpl>());

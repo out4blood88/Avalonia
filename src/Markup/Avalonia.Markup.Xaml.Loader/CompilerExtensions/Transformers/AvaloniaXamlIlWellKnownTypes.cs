@@ -10,7 +10,6 @@ namespace Avalonia.Markup.Xaml.XamlIl.CompilerExtensions.Transformers
     class AvaloniaXamlIlWellKnownTypes
     {
         public IXamlType AvaloniaObject { get; }
-        public IXamlType IAvaloniaObject { get; }
         public IXamlType BindingPriority { get; }
         public IXamlType AvaloniaObjectExtensions { get; }
         public IXamlType AvaloniaProperty { get; }
@@ -31,7 +30,6 @@ namespace Avalonia.Markup.Xaml.XamlIl.CompilerExtensions.Transformers
         public IXamlType DataTypeAttribute { get; }
         public IXamlType UnsetValueType { get; }
         public IXamlType StyledElement { get; }
-        public IXamlType IStyledElement { get; }
         public IXamlType NameScope { get; }
         public IXamlMethod NameScopeSetNameScope { get; }
         public IXamlType INameScope { get; }
@@ -106,7 +104,6 @@ namespace Avalonia.Markup.Xaml.XamlIl.CompilerExtensions.Transformers
         {
             XamlIlTypes = cfg.WellKnownTypes;
             AvaloniaObject = cfg.TypeSystem.GetType("Avalonia.AvaloniaObject");
-            IAvaloniaObject = cfg.TypeSystem.GetType("Avalonia.IAvaloniaObject");
             AvaloniaObjectExtensions = cfg.TypeSystem.GetType("Avalonia.AvaloniaObjectExtensions");
             AvaloniaProperty = cfg.TypeSystem.GetType("Avalonia.AvaloniaProperty");
             AvaloniaPropertyT = cfg.TypeSystem.GetType("Avalonia.AvaloniaProperty`1");
@@ -125,12 +122,12 @@ namespace Avalonia.Markup.Xaml.XamlIl.CompilerExtensions.Transformers
             AssignBindingAttribute = cfg.TypeSystem.GetType("Avalonia.Data.AssignBindingAttribute");
             DependsOnAttribute = cfg.TypeSystem.GetType("Avalonia.Metadata.DependsOnAttribute");
             DataTypeAttribute = cfg.TypeSystem.GetType("Avalonia.Metadata.DataTypeAttribute");
-            AvaloniaObjectBindMethod = AvaloniaObjectExtensions.FindMethod("Bind", IDisposable, false, IAvaloniaObject,
+            AvaloniaObjectBindMethod = AvaloniaObjectExtensions.FindMethod("Bind", IDisposable, false, AvaloniaObject,
                 AvaloniaProperty,
                 IBinding, cfg.WellKnownTypes.Object);
             UnsetValueType = cfg.TypeSystem.GetType("Avalonia.UnsetValueType");
             StyledElement = cfg.TypeSystem.GetType("Avalonia.StyledElement");
-            IStyledElement = cfg.TypeSystem.GetType("Avalonia.IStyledElement");
+            StyledElement = cfg.TypeSystem.GetType("Avalonia.StyledElement");
             INameScope = cfg.TypeSystem.GetType("Avalonia.Controls.INameScope");
             INameScopeRegister = INameScope.GetMethod(
                 new FindMethodMethodSignature("Register", XamlIlTypes.Void,
@@ -209,7 +206,7 @@ namespace Avalonia.Markup.Xaml.XamlIl.CompilerExtensions.Transformers
             StyledElementClassesProperty =
                 StyledElement.Properties.First(x => x.Name == "Classes" && x.PropertyType.Equals(Classes));
             ClassesBindMethod = cfg.TypeSystem.GetType("Avalonia.StyledElementExtensions")
-                .FindMethod( "BindClass", IDisposable, false, IStyledElement,
+                .FindMethod( "BindClass", IDisposable, false, StyledElement,
                 cfg.WellKnownTypes.String,
                 IBinding, cfg.WellKnownTypes.Object);
 

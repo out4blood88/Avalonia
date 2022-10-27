@@ -29,7 +29,7 @@ namespace Avalonia.Markup.UnitTests.Data
                 }
             };
 
-            var target = new Mock<IAvaloniaObject>().As<IControl>();
+            var target = new Mock<AvaloniaObject>().As<Control>();
             target.Setup(x => x.GetValue(Control.DataContextProperty)).Returns(source);
 
             var observable = binding.Initiate(target.Object, null).Observable;
@@ -60,7 +60,7 @@ namespace Avalonia.Markup.UnitTests.Data
                 }
             };
 
-            var target = new Mock<IAvaloniaObject>().As<IControl>();
+            var target = new Mock<AvaloniaObject>().As<Control>();
             target.Setup(x => x.GetValue(Control.DataContextProperty)).Returns(source);
 
             var observable = binding.Initiate(target.Object, null).Observable;

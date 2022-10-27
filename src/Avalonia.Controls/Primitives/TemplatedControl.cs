@@ -306,7 +306,7 @@ namespace Avalonia.Controls.Primitives
         }
 
         /// <inheritdoc/>
-        protected override IControl GetTemplateFocusTarget()
+        protected override Control GetTemplateFocusTarget()
         {
             foreach (Control child in this.GetTemplateChildren())
             {
@@ -379,7 +379,7 @@ namespace Avalonia.Controls.Primitives
         /// </summary>
         /// <param name="control">The control.</param>
         /// <param name="templatedParent">The templated parent to apply.</param>
-        internal static void ApplyTemplatedParent(IStyledElement control, ITemplatedControl? templatedParent)
+        internal static void ApplyTemplatedParent(StyledElement control, ITemplatedControl? templatedParent)
         {
             control.SetValue(TemplatedParentProperty, templatedParent);
 
@@ -388,7 +388,7 @@ namespace Avalonia.Controls.Primitives
 
             for (var i = 0; i < count; i++)
             {
-                if (children[i] is IStyledElement child && child.TemplatedParent is null)
+                if (children[i] is StyledElement child && child.TemplatedParent is null)
                 {
                     ApplyTemplatedParent(child, templatedParent);
                 }
@@ -433,7 +433,7 @@ namespace Avalonia.Controls.Primitives
                     valueStore.EndStyling();
                 }
 
-                var children = ((IVisual)control).VisualChildren;
+                var children = control.VisualChildren;
                 count = children.Count;
 
                 for (var i = 0; i < count; i++)

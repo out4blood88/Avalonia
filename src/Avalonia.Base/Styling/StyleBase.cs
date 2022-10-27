@@ -74,7 +74,7 @@ namespace Avalonia.Styling
 
         public event EventHandler? OwnerChanged;
 
-        public abstract SelectorMatchResult TryAttach(IStyleable target, object? host);
+        public abstract SelectorMatchResult TryAttach(StyledElement target, object? host);
 
         public bool TryGetResource(object key, out object? result)
         {
@@ -82,7 +82,7 @@ namespace Avalonia.Styling
             return _resources?.TryGetResource(key, out result) ?? false;
         }
 
-        internal ValueFrame Attach(IStyleable target, IStyleActivator? activator)
+        internal ValueFrame Attach(StyledElement target, IStyleActivator? activator)
         {
             if (target is not AvaloniaObject ao)
                 throw new InvalidOperationException("Styles can only be applied to AvaloniaObjects.");
@@ -124,7 +124,7 @@ namespace Avalonia.Styling
             return instance;
         }
 
-        internal SelectorMatchResult TryAttachChildren(IStyleable target, object? host)
+        internal SelectorMatchResult TryAttachChildren(StyledElement target, object? host)
         {
             if (_children is null || _children.Count == 0)
                 return SelectorMatchResult.NeverThisType;

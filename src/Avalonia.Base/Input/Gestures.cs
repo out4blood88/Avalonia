@@ -92,7 +92,7 @@ namespace Avalonia.Input
             if (ev.Route == RoutingStrategies.Bubble)
             {
                 var e = (PointerPressedEventArgs)ev;
-                var visual = (IVisual)ev.Source;
+                var visual = (Visual)ev.Source;
 
                 if (e.ClickCount <= 1)
                 {

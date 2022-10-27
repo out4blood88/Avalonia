@@ -30,7 +30,7 @@ namespace Avalonia.Controls.UnitTests
 
                 var window = new Window { Content = target };
                 window.ApplyTemplate();
-                window.Presenter.ApplyTemplate();
+                ((Control)window.Presenter).ApplyTemplate();
 
                 int openedCount = 0;
 
@@ -62,7 +62,7 @@ namespace Avalonia.Controls.UnitTests
 
                 var window = new Window { Content = target };
                 window.ApplyTemplate();
-                window.Presenter.ApplyTemplate();
+                ((Control)window.Presenter).ApplyTemplate();
 
                 target.RaiseEvent(new ContextRequestedEventArgs());
 
@@ -131,7 +131,7 @@ namespace Avalonia.Controls.UnitTests
 
                 var window = new Window { Content = target };
                 window.ApplyTemplate();
-                window.Presenter.ApplyTemplate();
+                ((Control)window.Presenter).ApplyTemplate();
 
                 int openedCount = 0;
 
@@ -159,7 +159,7 @@ namespace Avalonia.Controls.UnitTests
 
                 var window = new Window { Content = target };
                 window.ApplyTemplate();
-                window.Presenter.ApplyTemplate();
+                ((Control)window.Presenter).ApplyTemplate();
 
                 bool opened = false;
 
@@ -187,7 +187,7 @@ namespace Avalonia.Controls.UnitTests
 
                 var window = new Window { Content = target };
                 window.ApplyTemplate();
-                window.Presenter.ApplyTemplate();
+                ((Control)window.Presenter).ApplyTemplate();
 
                 target.ContextMenu = null;
 
@@ -208,7 +208,7 @@ namespace Avalonia.Controls.UnitTests
 
                 var window = new Window { Content = target };
                 window.ApplyTemplate();
-                window.Presenter.ApplyTemplate();
+                ((Control)window.Presenter).ApplyTemplate();
 
                 sut.Open(target);
 
@@ -392,7 +392,7 @@ namespace Avalonia.Controls.UnitTests
                 var window = new Window { Content = sp };
                 
                 window.ApplyTemplate();
-                window.Presenter.ApplyTemplate();
+                ((Control)window.Presenter).ApplyTemplate();
 
                 _mouse.Click(target1, MouseButton.Right);
 
@@ -595,7 +595,7 @@ namespace Avalonia.Controls.UnitTests
 
             var w = new Window(windowImpl.Object) { Content = content };
             w.ApplyTemplate();
-            w.Presenter.ApplyTemplate();
+            ((Control)w.Presenter).ApplyTemplate();
             return w;
         }
 

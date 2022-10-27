@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using Avalonia.Collections;
 using Avalonia.Controls;
 using Avalonia.Diagnostics;
 using Avalonia.Styling;
@@ -14,7 +15,7 @@ namespace Avalonia.Base.UnitTests.Styling
         [Fact]
         public void Control_In_Template_Is_Matched_With_Template_Selector()
         {
-            var target = new Mock<IVisual>();
+            var target = new Mock<Visual>();
             var templatedControl = target.As<ITemplatedControl>();
             var styleable = target.As<IStyleable>();
             BuildVisualTree(target);
@@ -31,7 +32,7 @@ namespace Avalonia.Base.UnitTests.Styling
         [Fact]
         public void Control_Not_In_Template_Is_Not_Matched_With_Template_Selector()
         {
-            var target = new Mock<IVisual>();
+            var target = new Mock<Visual>();
             var templatedControl = target.As<ITemplatedControl>();
             var styleable = target.As<IStyleable>();
             BuildVisualTree(target);
@@ -49,7 +50,7 @@ namespace Avalonia.Base.UnitTests.Styling
         [Fact]
         public void Control_In_Template_Of_Wrong_Type_Is_Not_Matched_With_Template_Selector()
         {
-            var target = new Mock<IVisual>();
+            var target = new Mock<Visual>();
             var templatedControl = target.As<ITemplatedControl>();
             var styleable = target.As<IStyleable>();
             BuildVisualTree(target);
@@ -66,7 +67,7 @@ namespace Avalonia.Base.UnitTests.Styling
         [Fact]
         public void Nested_Control_In_Template_Is_Matched_With_Template_Selector()
         {
-            var target = new Mock<IVisual>();
+            var target = new Mock<Visual>();
             var templatedControl = target.As<ITemplatedControl>();
             var styleable = target.As<IStyleable>();
             BuildVisualTree(target);
@@ -83,7 +84,7 @@ namespace Avalonia.Base.UnitTests.Styling
         [Fact]
         public void Control_In_Template_Is_Matched_With_TypeOf_TemplatedControl()
         {
-            var target = new Mock<IVisual>();
+            var target = new Mock<Visual>();
             var templatedControl = target.As<ITemplatedControl>();
             var styleable = target.As<IStyleable>();
             var styleKey = templatedControl.Object.GetType();
@@ -99,7 +100,7 @@ namespace Avalonia.Base.UnitTests.Styling
         [Fact]
         public async Task Control_In_Template_Is_Matched_With_Correct_TypeOf_And_Class_Of_TemplatedControl()
         {
-            var target = new Mock<IVisual>();
+            var target = new Mock<Visual>();
             var templatedControl = target.As<ITemplatedControl>();
             var styleable = target.As<IStyleable>();
             var styleKey = templatedControl.Object.GetType();
@@ -117,7 +118,7 @@ namespace Avalonia.Base.UnitTests.Styling
         [Fact]
         public async Task Control_In_Template_Is_Not_Matched_With_Correct_TypeOf_And_Wrong_Class_Of_TemplatedControl()
         {
-            var target = new Mock<IVisual>();
+            var target = new Mock<Visual>();
             var templatedControl = target.As<ITemplatedControl>();
             var styleable = target.As<IStyleable>();
             BuildVisualTree(target);
@@ -133,7 +134,7 @@ namespace Avalonia.Base.UnitTests.Styling
         [Fact]
         public void Nested_Selector_Is_Unsubscribed()
         {
-            var target = new Mock<IVisual>();
+            var target = new Mock<Visual>();
             var templatedControl = target.As<ITemplatedControl>();
             var styleable = target.As<IStyleable>();
             BuildVisualTree(target);
@@ -151,9 +152,9 @@ namespace Avalonia.Base.UnitTests.Styling
             Assert.Equal(0, ((Classes)styleable.Object.Classes).ListenerCount);
         }
 
-        private void BuildVisualTree<T>(Mock<T> templatedControl) where T : class, IVisual
+        private void BuildVisualTree<T>(Mock<T> templatedControl) where T : Visual
         {
-            templatedControl.Setup(x => x.VisualChildren).Returns(new Controls.Controls
+            templatedControl.Setup(x => x.VisualChildren).Returns(new AvaloniaList<Visual>
             {
                 new Border
                 {

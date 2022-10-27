@@ -102,8 +102,8 @@ namespace Avalonia.Themes.Simple
         void IResourceProvider.AddOwner(IResourceHost owner) => (Loaded as IResourceProvider)?.AddOwner(owner);
 
         void IResourceProvider.RemoveOwner(IResourceHost owner) => (Loaded as IResourceProvider)?.RemoveOwner(owner);
-
-        public SelectorMatchResult TryAttach(IStyleable target, object? host) => Loaded.TryAttach(target, host);
+        
+        public SelectorMatchResult TryAttach(StyledElement target, object? host) => Loaded.TryAttach(target, host);
 
         public bool TryGetResource(object key, out object? value)
         {
