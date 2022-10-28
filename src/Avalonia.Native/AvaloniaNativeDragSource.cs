@@ -20,7 +20,7 @@ namespace Avalonia.Native
             _factory = factory;
         }
         
-        TopLevel FindRoot(IInteractive interactive)
+        TopLevel FindRoot(Interactive interactive)
         {
             while (interactive != null && !(interactive is Visual))
                 interactive = interactive.InteractiveParent;
