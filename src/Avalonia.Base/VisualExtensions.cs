@@ -16,10 +16,10 @@ namespace Avalonia
         /// <returns>The point in client coordinates.</returns>
         public static Point PointToClient(this Visual visual, PixelPoint point)
         {
-            var root = visual.VisualRoot as Visual ??
+            var root = visual.VisualRoot ??
                 throw new ArgumentException("Control does not belong to a visual tree.", nameof(visual));
             var rootPoint = root.PointToClient(point);
-            return root.TranslatePoint(rootPoint, visual)!.Value;
+            return ((Visual)root).TranslatePoint(rootPoint, visual)!.Value;
         }
 
         /// <summary>
@@ -30,9 +30,9 @@ namespace Avalonia
         /// <returns>The point in screen coordinates.</returns>
         public static PixelPoint PointToScreen(this Visual visual, Point point)
         {
-            var root = visual.VisualRoot as Visual ??
+            var root = visual.VisualRoot ??
                 throw new ArgumentException("Control does not belong to a visual tree.", nameof(visual));
-            var p = visual.TranslatePoint(point, root);
+            var p = visual.TranslatePoint(point, (Visual)root);
             return root.PointToScreen(p!.Value);
         }
 

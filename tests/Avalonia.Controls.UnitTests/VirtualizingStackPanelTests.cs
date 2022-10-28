@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.LogicalTree;
@@ -213,17 +215,46 @@ namespace Avalonia.Controls.UnitTests
             [Fact]
             public void Passes_Navigation_Request_To_ILogicalScrollable_Parent()
             {
-                var presenter = new Mock<ILogical>().As<Control>();
-                var scrollable = presenter.As<ILogicalScrollable>();
                 var target = new VirtualizingStackPanel();
+                var presenter = new TestPresenter { Child = target };
                 var from = new Canvas();
 
-                scrollable.Setup(x => x.IsLogicalScrollEnabled).Returns(true);
-
-                ((ISetLogicalParent)target).SetParent(presenter.Object);
                 ((INavigableContainer)target).GetControl(NavigationDirection.Next, from, false);
 
-                scrollable.Verify(x => x.GetControlInDirection(NavigationDirection.Next, from));
+                Assert.Equal(1, presenter.NavigationRequests.Count);
+                Assert.Equal((NavigationDirection.Next, from), presenter.NavigationRequests[0]);
+            }
+
+            private class TestPresenter : Decorator, ILogicalScrollable
+            {
+                public bool CanHorizontallyScroll { get; set; }
+                public bool CanVerticallyScroll { get; set; }
+                public bool IsLogicalScrollEnabled => true;
+                public Size ScrollSize { get; }
+                public Size PageScrollSize { get; }
+                public Size Extent { get; }
+                public Vector Offset { get; set; }
+                public Size Viewport { get; }
+
+                public event EventHandler ScrollInvalidated;
+
+                public List<(NavigationDirection, Control)> NavigationRequests { get; } = new();
+
+                public bool BringIntoView(Control target, Rect targetRect)
+                {
+                    throw new NotImplementedException();
+                }
+
+                public Control GetControlInDirection(NavigationDirection direction, Control from)
+                {
+                    NavigationRequests.Add((direction, from));
+                    return null;
+                }
+
+                public void RaiseScrollInvalidated(EventArgs e)
+                {
+                    throw new NotImplementedException();
+                }
             }
         }
     }

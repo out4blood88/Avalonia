@@ -29,10 +29,8 @@ namespace Avalonia.Markup.UnitTests.Data
                 }
             };
 
-            var target = new Mock<AvaloniaObject>().As<Control>();
-            target.Setup(x => x.GetValue(Control.DataContextProperty)).Returns(source);
-
-            var observable = binding.Initiate(target.Object, null).Observable;
+            var target = new Control { DataContext = source };
+            var observable = binding.Initiate(target, null).Observable;
             var result = await observable.Take(1);
 
             Assert.Equal("1,2,3", result);
@@ -60,10 +58,8 @@ namespace Avalonia.Markup.UnitTests.Data
                 }
             };
 
-            var target = new Mock<AvaloniaObject>().As<Control>();
-            target.Setup(x => x.GetValue(Control.DataContextProperty)).Returns(source);
-
-            var observable = binding.Initiate(target.Object, null).Observable;
+            var target = new Control { DataContext = source };
+            var observable = binding.Initiate(target, null).Observable;
             var result = await observable.Take(1);
 
             Assert.Equal("1,2,3", result);
