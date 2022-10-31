@@ -24,7 +24,7 @@ namespace Avalonia.Controls.UnitTests
                         {
                             Setters =
                             {
-                                new Setter(TemplatedControl.TemplateProperty, GetTemplate())
+                                new Setter(Avalonia.Controls.Primitives.TemplatedControl.TemplateProperty, GetTemplate())
                             }
                         }
                     },
