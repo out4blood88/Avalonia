@@ -127,6 +127,9 @@
       <TabItem Header="RadioButton">
         <pages:RadioButtonPage />
       </TabItem>
+      <TabItem Header="RefreshView">
+        <pages:RefreshViewPage />
+      </TabItem>
       <TabItem Header="RelativePanel">
         <pages:RelativePanelPage />
       </TabItem>
